@@ -40,7 +40,7 @@ public class Cliente extends JFrame {
     private static AtomicInteger idusuario = new AtomicInteger(0);
     String nombreUsuario;
     private int contadorId;
-    public static ArrayList<Cliente> arrayClientes = new ArrayList<>();
+//    public static ArrayList<Cliente> arrayClientes = new ArrayList<>();
 
 
     public Cliente(Socket socket, String nombreUsuario){
@@ -57,7 +57,7 @@ public class Cliente extends JFrame {
             cerrarSocket(this.socket, bufferedReader, bufferedWriter);
         }
         initWindow();
-        menu();
+       // menu();
         add(panelPrincipal);
         setVisible(true);
         setTitle(nombreUsuario);
@@ -83,15 +83,16 @@ public class Cliente extends JFrame {
     }
 
     public void menu(){
+        /*
         mb = new JMenuBar();
         menu1 = new JMenu("Opciones");
+
         mi1 = new JMenuItem("Nuevo participante");
         mi1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String usuario = JOptionPane.showInputDialog("Nombre de usuario");
                 try {
-
                     arrayClientes.add(new Cliente(new Socket("localhost", 1234), usuario));
                     arrayClientes.get(arrayClientes.size()-1).enviarPrimerMensaje();
                 } catch (IOException ex) {
@@ -105,13 +106,15 @@ public class Cliente extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 cerrarSocket(socket, bufferedReader, bufferedWriter);
-                arrayClientes.remove(this);
+               arrayClientes.remove(this);
             }
         });
-        menu1.add(mi1);
+        me1.add(mi1);
         menu1.add(mi2);
         mb.add(menu1);
         setJMenuBar(mb);
+
+         */
     }
 
 
@@ -187,8 +190,7 @@ public class Cliente extends JFrame {
         String usuario = JOptionPane.showInputDialog("Nombre de usuario");
         Socket socket = new Socket("localhost", 1234);
         Cliente cliente = new Cliente(socket, usuario);
-        arrayClientes.add(cliente);
+       // arrayClientes.add(cliente);
         cliente.enviarPrimerMensaje();
-        System.out.println("acabo mi vida");
     }
 }

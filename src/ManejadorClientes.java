@@ -32,6 +32,7 @@ public class ManejadorClientes implements Runnable{
                     "<html> ha ingresado al chat<br/>";
             brodcastMensaje(mensaje);
         } catch (IOException e) {
+            System.out.println("MC1: " + e.getMessage());
             cerrarSocket(socket, bufferedReader, bufferedWriter);
         }
     }
@@ -46,6 +47,7 @@ public class ManejadorClientes implements Runnable{
                 brodcastMensaje(mensajeCliente);
 
             }catch (IOException | NullPointerException e){
+                System.out.println("MC2: " + e.getMessage());
                 cerrarSocket(socket, bufferedReader, bufferedWriter);
                 break;
             }
@@ -60,18 +62,23 @@ public class ManejadorClientes implements Runnable{
                     manejador.bufferedWriter.newLine();
                     manejador.bufferedWriter.flush();
                 }
-                System.out.println(nombreUsuario);
             }catch (IOException | NullPointerException e){
+                System.out.println("MC3: " + e.getMessage());
                 cerrarSocket(socket, bufferedReader, bufferedWriter);
             }
         }
     }
 
     public void eliminarCliente(){
-        manejadorUsuarios.remove(this);
-        String mensaje = "<html>SERVIDOR: " + this.nombreUsuario + " ha sido eliminado<br/>";
-        brodcastMensaje(mensaje);
-        System.out.println("manejador");
+        try {
+            manejadorUsuarios.remove(this);
+            String mensaje = "<html>SERVIDOR: " + this.nombreUsuario + " ha sido eliminado<br/>";
+            brodcastMensaje(mensaje);
+            System.out.println("Eliminado usuaro:" + this.nombreUsuario);
+        } catch (Exception e) {
+            System.out.println("MC4: " + e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     public void cerrarSocket(Socket socket, BufferedReader bufferedReader, BufferedWriter bufferedWriter){
@@ -88,6 +95,7 @@ public class ManejadorClientes implements Runnable{
             }
 
         }catch (IOException e){
+            System.out.println("MC5: " + e.getMessage());
             e.printStackTrace();
         }
     }
